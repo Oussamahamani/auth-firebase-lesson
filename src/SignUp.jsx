@@ -1,5 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import {auth} from "./firebase/config";
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -7,7 +8,14 @@ function Signup() {
   const handleSubmit =async (event) => {
     event.preventDefault();
     console.log(auth)
-    console.log(`Email: ${email}, Password: ${password}`);
+    try {
+      
+      let res =await createUserWithEmailAndPassword(auth,email,password)
+      console.log(`Email: ${email}, Password: ${password}`);
+      console.log("🚀 ~ handleSubmit ~ res:", res)
+    } catch (error) {
+      console.log("error",error)
+    }
   };
 
 
