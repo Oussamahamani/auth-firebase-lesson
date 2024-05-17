@@ -13,7 +13,8 @@ function Login({setUser}) {
       console.log(`Email: ${email}, Password: ${password}`);
       let res = await signInWithEmailAndPassword(auth,email,password)
       console.log("🚀 ~ handleSubmit ~ res:", res)
-      setUser(res.user)
+      // setUser(res.user)
+      setUser({authIsReady:true,user:res.user})
     } catch (error) {
       console.log("err",error)
     }

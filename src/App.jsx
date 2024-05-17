@@ -8,27 +8,33 @@ import Navbar from './Navbar';
  import "./App.css";
  import {auth} from "./firebase/config";
 function App() {
- const [user,setUser]=useState(null)
- 
- console.log(user)
+ const [userAuth,setUserAuth]=useState({authIsReady:false,user:null})
+//  let {user:userAuth.user,authIsReady}=user
+//  console.log(user)
  
  useEffect(()=>{
 let unsub=  auth.onAuthStateChanged((user)=>{
     console.log("authentication",user)
-    setUser(user)
+
+    setUserAuth({authIsReady:true,user:user})
     unsub()
   })
     // console.log("user",auth)
   
- })
+ },[])
   return (
     <Router>
-        <Navbar user={user}/>     
+      {userAuth.authIsReady&&  
+      <>
+      <Navbar user={userAuth} setUser={setUserAuth}/>     
             <Routes>                                                                      
-               <Route path="/" element={user?<Home user={user}/>:<Navigate to="/login"/> }/>
-               <Route path="/signup" element={user?<Navigate to="/"/>:<Signup setUser={setUser} />}/>
-               <Route path="/login" element={user?<Navigate to="/"/>:<SignIn setUser={setUser}/>}/>
-            </Routes>                    
+               <Route path="/" element={userAuth.user?<Home user={userAuth}/>:<Navigate replace={true} to="/login"/> }/>
+               <Route path="/signup" element={userAuth.user?<Navigate replace={true} to="/"/>:<Signup setUser={setUserAuth} />}/>
+               <Route path="/login" element={userAuth.user?<Navigate replace={true} to="/"/>:<SignIn setUser={setUserAuth}/>}/>
+            </Routes>    
+      </>
+            
+            }                
     </Router>
   );
 }
