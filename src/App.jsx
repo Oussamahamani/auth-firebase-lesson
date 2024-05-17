@@ -6,10 +6,21 @@ import SignIn from './SignIn';
 import Home from './Home';
 import Navbar from './Navbar';
  import "./App.css";
+ import {auth} from "./firebase/config";
 function App() {
  const [user,setUser]=useState(null)
  
  console.log(user)
+ 
+ useEffect(()=>{
+let unsub=  auth.onAuthStateChanged((user)=>{
+    console.log("authentication",user)
+    setUser(user)
+    unsub()
+  })
+    // console.log("user",auth)
+  
+ })
   return (
     <Router>
         <Navbar user={user}/>     
