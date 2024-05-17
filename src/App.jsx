@@ -7,15 +7,16 @@ import Home from './Home';
 import Navbar from './Navbar';
  import "./App.css";
 function App() {
+ const [user,setUser]=useState(null)
  
-
+ console.log(user)
   return (
     <Router>
-        <Navbar/>     
+        <Navbar user={user}/>     
             <Routes>                                                                      
-               <Route path="/" element={<Home/>}/>
-               <Route path="/signup" element={<Signup />}/>
-               <Route path="/login" element={<SignIn/>}/>
+               <Route path="/" element={user?<Home user={user}/>:<Navigate to="/login"/> }/>
+               <Route path="/signup" element={user?<Navigate to="/"/>:<Signup setUser={setUser} />}/>
+               <Route path="/login" element={user?<Navigate to="/"/>:<SignIn setUser={setUser}/>}/>
             </Routes>                    
     </Router>
   );

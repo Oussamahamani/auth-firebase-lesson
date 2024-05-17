@@ -1,24 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import "./App.css"
-const Navbar = () => {
+const Navbar = ({user}) => {
     const logOut=(e)=>{
     }
     return (
         <nav className="navbar">
             <ul className="navbar-list">
-                <li className="navbar-item">
+              {user &&  <li className="navbar-item">
                     <Link to="/" className="navbar-link">Home</Link>
-                </li>
-                <li className="navbar-item">
+                </li>}
+            {!user&&    <li className="navbar-item">
                     <Link to="/signup" className="navbar-link">Signup</Link>
-                </li>
-                <li className="navbar-item">
+                </li>}
+           { !user && <li className="navbar-item">
                     <Link to="/login" className="navbar-link">Login</Link>
-                </li>
-                <li className="navbar-item">
+                </li>}
+            {user&&    <li className="navbar-item">
                     <span className="navbar-link" onClick={logOut}>Log Out</span>
-                </li>
+                </li>}
             </ul>
         </nav>
     );

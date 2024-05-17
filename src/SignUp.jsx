@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from 'react';
 import {auth} from "./firebase/config";
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-function Signup() {
+function Signup({setUser}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -12,7 +12,7 @@ function Signup() {
       
       let res =await createUserWithEmailAndPassword(auth,email,password)
       console.log(`Email: ${email}, Password: ${password}`);
-
+      setUser(res.user)
       //create user
       // it will create documnet in the users collection
       //set document with the uid provided by firebase

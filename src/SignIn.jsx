@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {auth} from "./firebase/config";
 import { signInWithEmailAndPassword } from 'firebase/auth';
-function Login() {
+function Login({setUser}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -13,6 +13,7 @@ function Login() {
       console.log(`Email: ${email}, Password: ${password}`);
       let res = await signInWithEmailAndPassword(auth,email,password)
       console.log("🚀 ~ handleSubmit ~ res:", res)
+      setUser(res.user)
     } catch (error) {
       console.log("err",error)
     }
