@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-
+import {auth} from "./firebase/config";
+import { signInWithEmailAndPassword } from 'firebase/auth';
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -7,7 +8,14 @@ function Login() {
   const handleSubmit = async(event) => {
     event.preventDefault();
     // Here you can call your signup API
-    console.log(`Email: ${email}, Password: ${password}`);
+    try {
+      
+      console.log(`Email: ${email}, Password: ${password}`);
+      let res = await signInWithEmailAndPassword(auth,email,password)
+      console.log("🚀 ~ handleSubmit ~ res:", res)
+    } catch (error) {
+      console.log("err",error)
+    }
   };
 
   return (
