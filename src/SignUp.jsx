@@ -1,11 +1,12 @@
 import React, { useState,useEffect } from 'react';
-
+import {auth} from "./firebase/config";
 function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit =async (event) => {
     event.preventDefault();
+    console.log(auth)
     console.log(`Email: ${email}, Password: ${password}`);
   };
 
